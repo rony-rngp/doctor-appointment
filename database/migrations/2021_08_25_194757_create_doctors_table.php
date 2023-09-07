@@ -1,0 +1,48 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateDoctorsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('doctors', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('specialist_id')->constrained('specialists')->onDelete('cascade');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('phone');
+            $table->string('gender');
+            $table->string('dob');
+            $table->string('clinic');
+            $table->string('clinic_address');
+            $table->float('fees');
+            $table->string('degree');
+            $table->longText('about');
+            $table->string('show_password');
+            $table->string('password');
+            $table->string('image')->nullable();
+            $table->tinyInteger('status');
+            $table->float('amount')->default(0);
+            $table->float('total_amount')->default(0);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('doctors');
+    }
+}
